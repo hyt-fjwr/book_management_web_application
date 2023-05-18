@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    th:replace="~{layout :: layout(~{::title},~{::body/content()})}">
+<head>
+<link rel="icon" type="image/png" th:href="images/logo.png">
+<title>ログイン画面</title>
+</head>
+<body>
+  <div id="main">
+    <div class="login-card">
+      <p class="reqmsg">ユーザーIDとパスワードを入力してください。</p>
+      <p class="error" th:text="${errMessage}"></p>
+      <form th:action="@{/login}" th:object="${loginForm}" method="post" class="login-form">
+        <span th:if="${#fields.hasErrors('bookUserId')}" th:errors="*{bookUserId}" class="error"></span>
+        <input type="number" th:field="*{bookUserId}" placeholder="ユーザーID" class="userInput" required />
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+        <input type="password" th:field="*{password}" placeholder="パスワード" class="passInput" required />
+        <input type="submit" value="ログイン" class ="submitBtn">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

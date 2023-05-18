@@ -1,0 +1,11 @@
+<meta charset="UTF-8" />
+<div id="header" th:fragment="layout-header">
+	<div class="content">
+		<h3 class="title">書籍管理システム</h3>
+		<h5 class="engtitle">Book Management System</h5>
+		<div id="loginInfo">
+			<div class="item1" th:text="${session.user}"></div>
+			<a class ="item1" th:href="@{/logout}" th:text="${session.logoutMsg}">ログアウト</a>
+		</div>
+	</div>
+</div>

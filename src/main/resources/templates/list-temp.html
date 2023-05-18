@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- JavaScript -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<!-- CSS -->
+	<link href="liststyle.css" rel="stylesheet">
+	<!-- Boxicons CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+<title>書籍管理システム</title>
+</head>
+<body>
+	<div class="cursor"></div>
+	<nav class="sidebar">
+		<header>
+			<div class="image-text">
+				<span class="image">
+					<img src="images/logo.png" alt="logo">
+				</span>
+
+				<div class="text header-text">
+					<span id="name">書籍管理システム</span>
+					<span id="eng-name">Book Management System</span>
+				</div>
+			</div>
+
+			<i class='bx bx-chevrons-right toggle'></i>
+		</header>
+
+		<div class="menu-bar">
+			<div class="menu">
+				<div class="userName"><p>ようこそ、<span th:text="${bookUser}">ああ</span>さん</p></div>
+					<p class="searchHeader">書籍名検索</p>
+					<li class="search-box">
+								<form th:action="@{/findByName}" id="searchForm" method="post" class="search">
+									<a href="javascript:searchForm.submit()" class="search"><i class='bx bx-search-alt icon'></i></a>
+									<input type="text" name="bookName" placeholder="検索...">
+								</form>
+					</li>
+					<p class="searchHeader">ジャンル検索</p>
+					<li class="search-genre">
+						<form th:action="@{/findByName}" id="searchForm" method="post" class="search">
+							<a href="javascript:searchForm.submit()" class="searchGenre"><i class='bx bx-search-alt icon'></i></a>
+							<select name="genredrop">
+								<option th:each="genre:${genres}" th:value="${genre.id}" th:text="${genre.genreName}"></option>
+								<option value="aa">aaa</option>
+							</select>
+						</form>
+					</li>
+				<ul class="menu-link">
+					<li class="nav-link">
+						<a th:href="@{/list}">
+							<i class='bx bx-home icon'></i>
+							<span class="text nav-text">ホーム</span>
+						</a>
+					</li>
+					<li class="nav-link">
+						<a th:href="@{/registry_book}" class="registry_book">
+							<i class='bx bx-data icon'></i>
+							<span class="text nav-text">新規書籍登録</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="bottom-content">
+				<li class="">
+					<a th:href="@{/logout}" class="logoutBtn">
+						<i class="bx bx-log-out icon"></i>
+						<span class="text nav-text">ログアウト</span>
+					</a>
+				</li>
+
+				<li class="mode">
+					<div class="moon-sun">
+						<i class="bx bx-moon icon moon"></i>
+						<i class="bx bx-sun icon sun"></i>
+					</div>
+
+					<span class="text mode-text">ダークモード</span>
+
+					<div class="toggle-switch">
+						<span class="switch"></span>
+					</div>
+				</li>
+			</div>
+		</div>
+	</nav>
+
+	<div class="main-list">
+		<h1 class="table-header">書籍一覧</h1>
+		<div class="menu-container">
+			<div class="findAllBtn">
+				<a th:href="@{/findAll}">
+					<i class="bx bx-search icon"></i>
+					<span class="text findAllText">全件表示</span>
+				</a>
+			</div>
+			<div class="genreDropdown">
+				<select name="genredrop">
+					<option th:each="genre:${genres}" th:value="${genre.genreId}" th:text="${genre.genreName}"></option>
+				</select>
+			</div>
+		</div>
+		<table class="list-table">
+			<tr>
+				<th class="bookid">書籍ID</th>
+				<th>書籍名</th>
+				<th>著者</th>
+				<th>発行日</th>
+				<th>在庫</th>
+				<th>ジャンル</th>
+			</tr>
+			<tr th:each="book:${books}">
+				<td th:text="${book.bookId}"></td>
+				<td th:text="${book.bookName}"></td>
+				<td th:text="${book.author}"></td>
+				<td th:text="${book.publicationDate}"></td>
+				<td th:text="${book.stock}"></td>
+				<td th:text="${book.genreId}"></td>
+			</tr>
+			<tr>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+			</tr>
+			<tr>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+				<td>test</td>
+			</tr>
+		</table>
+		<!-- 表示する書籍が存在しない場合のメッセージをclass名messageで作成してください -->
+		<div class="message" th:if="${#lists.isEmpty(books)}">
+			<p>該当する書籍は存在しません。</p>
+		</div>
+	</div>
+
+</body>
+</html>

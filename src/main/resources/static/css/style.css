@@ -1,0 +1,171 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
+/* font-family: 'Heebo', sans-serif;
+font-family: 'Noto Sans JP', sans-serif;
+font-family: 'Zen Maru Gothic', sans-serif; */
+
+:root{
+  --body-color: #E4E9F7;
+  --sidebar-color-: #FFF;
+  --primary-color-: #ff7164;
+  --primary-color-light: #F6F5FF;
+  --toggle-color: #DDD;
+  --text-color: #707070;
+  --header-color: #000000;
+  --list-color: #DDD;
+  --button-color: #ffffff;
+
+  /* transition */
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.4s ease;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  overflow:hidden;
+  width:100%;
+  height:100%;
+  background: var(--body-color);
+}
+
+p.error {
+  color: red;
+  font-size: 14px;
+}
+
+span.error{
+  color:red;
+  font-size: 14px;
+}
+
+.login-card{
+  font-family: "Noto Sans JP";
+  z-index: 3;
+  position: relative;
+  background: -webkit-linear-gradient(36deg, #b9d4e5, #e7fffa 35%, #f6dfff 90%);
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  border-radius: 1.25rem;
+  padding: 30px 30px 44px;
+  margin: 30px auto;
+  box-shadow: 0 2.5rem 2rem -2rem #193c4d66;
+}
+
+.login-card .reqmsg{
+  margin-bottom: 15px;
+}
+
+.login-form{
+  width: 250px;
+  margin: 0 auto;
+  display: grid;
+  text-align: center;
+}
+
+.login-form > input, .login-form > input.submitBtn{
+  width: 100%;
+  height: 40px;
+}
+
+.login-form > input {
+  font-family: "Noto Sans JP";
+  border: 2px solid #ebebeb;
+  margin-bottom: 15px;
+  position: flex;
+  font-size: 10px;
+  border-radius: 1.25rem;
+  transition: all 0.375;
+  font-size: 13px;
+  text-align: center;
+  transition: var(--tran-04);
+}
+
+.login-form > input.passInput:hover,
+.login-form > input.userInput:hover{
+  border: 2px solid rgb(65, 185, 255);
+  height: 55px;
+  transition: var(--tran-04);
+}
+
+.login-form > input.submitBtn:hover{
+  border: 2px solid rgb(10, 218, 255);
+  transition: var(--tran-04);
+  color: #146281;
+  border-radius: 0.5rem;
+  width: 65%;
+  filter: blur();
+  background: -webkit-linear-gradient(36deg, #d3eeff, #e5fff9 35%, #f6dfff 90%);
+}
+
+.login-form > input.submitBtn{
+  cursor: pointer;
+  width: 60%;
+  padding: 0 16px;
+  margin: auto;
+  border-radius: 1.25rem;
+  background: #3da5fa;
+  color: #f9f9f9;
+  border: 0;
+  font-weight: 500;
+  text-align: center;
+  justify-content: center;
+  letter-spacing: 2px;
+  transition: all 0.375;
+}
+
+div#header {
+  font-family: "Zen Maru Gothic";
+  font-size: 20px;
+  padding-top: 5px;
+  padding-left: 15px;
+  height: 80px;
+  width: 100%;
+  background-color: var(--body-color);
+  color: var(--header-color);
+  text-align: left;
+}
+
+div#footer {
+  position: fixed;
+  margin: 5;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: right;
+  font-family: "Noto Sans JP";
+  font-size: 10px;
+  height: 20px;
+  background-color: var(--body-color);
+  color: var(--header-color);
+}
+
+div#main {
+  text-align: center;
+  height: 300px;
+}
+
+@keyframes change-color-anim {
+  0%,100%{
+    background-color: #ff4500;
+  }
+  20%{
+    background-color: #7fff00;
+  }
+  40%{
+    background-color: #0091EA;
+  }
+  60%{
+    background-color: #9400d3;
+  }
+  80%{
+    background-color: #ff69b4;
+  }
+}

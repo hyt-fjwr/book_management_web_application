@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ページが見つかりません</title>
+    <!-- CSS -->
+    <link th:href="@{css/404.css}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="text">
+        <div class="header">
+            <h1>404</h1>
+            <h3>PAGE NOT FOUND</h3><br>
+        </div>
+        <div class="sentence">
+            <p>ページが見つかりませんでした....</p><br>
+            <a th:href="@{/list_r}">戻る</a>
+        </div>
+    </div>
+    <div id="bird"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+      <script>
+      VANTA.BIRDS({
+        el: "#bird",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        backgroundColor: 0xE4E9F7,
+        color1: 0x1130ff,
+        wingSpan: 25.00,
+        speedLimit: 2,
+        separation: 200.00,
+        quantity: 3.00
+      })
+      </script>
+  </body>
+</html>
