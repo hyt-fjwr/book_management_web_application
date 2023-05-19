@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sss.book.entity.Book;
+import jp.co.sss.book.entity.Genre;
 import jp.co.sss.book.form.BookForm;
 import jp.co.sss.book.repository.BookRepository;
 import jp.co.sss.book.repository.BookUserRepository;
@@ -28,6 +29,7 @@ public class BookController {
     @RequestMapping("/list")
     public String showList(Model model) {
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        model.addAttribute("books", repository.findAllByOrderByBookIdAsc());
         return "/list";
     }
 
@@ -60,19 +62,24 @@ public class BookController {
     @RequestMapping("/registry_book")
     public String registryBook(Model model){
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        model.addAttribute("books", repository.findAllByOrderByBookIdAsc());
         return "book_registration";
     }
 
     @PostMapping("/registry_complete")
     public String registryComplete(BookForm form, Model model){
-        Book book = new Book();
-        BeanUtils.copyProperties(form, book);
-        System.out.println("BookID"+form.getBookId());
-        System.out.println("作品名"+form.getBookName());
-        System.out.println("著者"+form.getAuthor());
-        System.out.println("日にち"+form.getPublicationDate());
-        System.out.println("ストック"+form.getStock());
-        System.out.println("ジャンルID"+form.getGenreId());
-        return "redirect:/findAll";
+    	//Create entity objects
+    	Book book = new Book();
+    	Genre genre = new Genre();
+    	//Set genre id to the genre entity
+    	genre.setId(form.getGenreId());
+    	book.setGenre(genre);
+    	
+    	//Copy form value to the book entity exclude book id.
+        BeanUtils.copyProperties(form, book, "id");
+        
+        //Registry data to the database
+        book=repository.save(book);
+        return "redirect:/registry_book";
     }
 }

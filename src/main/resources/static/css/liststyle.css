@@ -483,6 +483,12 @@ form .user-details .input-box select{
     transition: var(--tran-04);
 }
 
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+    border-color: var(--primary-color-);
+    transition: var(--tran-04);
+}
+
 form .user-details .input-box .details{
     margin-top: 3px;
     display: flex;

@@ -114,7 +114,7 @@
                 <div class="input-box">
                     <span class="details">ジャンル</span>
                     <select name="genreId">
-						<option th:each="genre:${genres}" th:value="${genre.id}" th:text="${genre.genreName}"></option>
+						<option th:each="genre:${genres}" name="genreId" th:value="${genre.id}" th:text="${genre.genreName}"></option>
 					</select>
                 </div>
             </div>
