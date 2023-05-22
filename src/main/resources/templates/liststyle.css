@@ -21,8 +21,7 @@ font-family: 'Zen Maru Gothic', sans-serif; */
     --text-color: #707070;
     --header-color: #000000;
     --list-color: #DDD;
-    --button-color: #ffffff;
-    --button-text-color: #000000;
+    --button-color: #dde6f1;
     --hover-color: #cccccc;
 
     /* transition */
@@ -47,8 +46,7 @@ body.dark{
     --text-color: #cccccc;
     --header-color: #e3e3e3;
     --list-color: #86868699;
-    --button-text-color: #000000;
-    --button-color: #c6cdd6;
+    --button-color: #dde6f1;
     --hover-color: #9a9a9a;
 }
 
@@ -356,7 +354,7 @@ body.dark .switch::before{
     width: 60px;
 }
 .list-table .genre{
-    width: 120px;
+    width: 150px;
 }
 
 .main-list .message{
@@ -438,12 +436,11 @@ body.dark .switch::before{
     border: 0;
     padding: 5px;
     border-radius: 0.75rem;
-    background: none;
-    color: var(--text-color);
+    background: var(--toggle-color);
 }
 
-.list-table #delete{
-    color: var(--primary-color-);
+.list-table input.delete{
+    color: red;
 }
 
 .list-table input:hover{
@@ -549,7 +546,7 @@ form .button input{
     height: 100%;
     width: 250px;
     outline: none;
-    color: var(--header-color);
+    color: var(--text-color);
     border: none;
     font-size: 25px;
     border-radius: 5px;

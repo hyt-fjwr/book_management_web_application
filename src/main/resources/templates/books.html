@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+	<link rel="icon" type="image/png" href="images/logo.png">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- JavaScript -->
-	<script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{js/jquery-3.6.4.min.js}"></script>
+	<script th:src="@{js/script.js}"></script>
 	<!-- CSS -->
-	<link th:href="@{/css/liststyle.css}" rel="stylesheet">
+	<link th:href="@{css/liststyle.css}" rel="stylesheet">
 	<!-- Boxicons CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-	<link rel="icon" type="image/png" href="images/logo.png">
-<title>新規書籍登録</title>
+<title>書籍管理システム</title>
 </head>
 <body>
 	<nav class="sidebar">
@@ -93,37 +93,41 @@
 		</div>
 	</nav>
 
-    <div class="container">
-        <div class="title">新規書籍登録</div>
-        <form th:action="@{/registry_complete}" method="post" class="user-details">
-            <div class="user-details">
-                <div class="input-box">
-                    <span class="details">書籍名</span>
-                    <input type="text" name="bookName" placeholder="書籍名を入力してください" required />
-                </div>
-                <div class="input-box">
-                    <span class="details">著者</span>
-                    <input type="text" name="author" placeholder="著者を入力してください" required />
-                </div>
-                <div class="input-box">
-                    <span class="details">発行日</span>
-                    <input type="date" name="publicationDate" pattern="\d{4}-\d{2}-\d{2}" placeholder="発行日を入力してください" required />
-                </div>
-                <div class="input-box">
-                    <span class="details">在庫数</span>
-                    <input type="number" name="stock" placeholder="在庫数を入力してください" required />
-                </div>
-                <div class="input-box">
-                    <span class="details">ジャンル</span>
-                    <select name="genreId">
-						<option th:each="genre:${genres}" name="genreId" th:value="${genre.id}" th:text="${genre.genreName}"></option>
-					</select>
-                </div>
-            </div>
-            <div class="button">
-                <input type="submit" value="登録">
-            </div>
-        </form>
-    </div>
+	<div class="main-list">
+		<h1 class="table-header">書籍一覧</h1>
+		<div class="menu-container">
+			<div class="findAllBtn">
+				<a th:href="@{/findAll}">
+					<i class="bx bx-search icon"></i>
+					<span class="text findAllText">全件表示</span>
+				</a>
+			</div>
+		</div>
+		<div class="message" th:if="${#lists.isEmpty(books)}">
+			<p>該当する書籍は存在しません。</p>
+		</div>
+		<div class="table" th:unless="${#lists.isEmpty(books)}">
+			<table class="list-table">
+				<tr>
+					<th class="bookid">書籍ID</th>
+					<th>書籍名</th>
+					<th>著者</th>
+					<th>発行日</th>
+					<th>在庫</th>
+					<th>ジャンル</th>
+				</tr>
+				<tr th:each="book:${books}">
+					<td th:text="${book.bookId}"></td>
+					<td th:text="${book.bookName}"></td>
+					<td th:text="${book.author}"></td>
+					<td th:text="${#dates.format(book.publicationDate, 'YYYY/MM/dd')}"></td>
+					<td th:text="${book.stock}"></td>
+					<td th:text="${book.genre.genreName}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
 </body>
 </html>

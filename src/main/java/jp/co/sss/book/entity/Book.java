@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "book")
@@ -28,6 +29,7 @@ public class Book {
     @Column
     private Integer stock;
     @ManyToOne()
+    @JsonIgnore
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
 

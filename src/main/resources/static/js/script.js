@@ -33,3 +33,13 @@ $(document).ready(function () {
     }
   });
 });
+
+$(document).ready(function () {
+  $(".deleteForm").submit(function(){
+    if(window.confirm("データを削除してもよろしいですか？")){
+      return true;
+    }else{
+      return false;
+    }
+  });
+});

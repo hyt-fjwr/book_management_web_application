@@ -3,13 +3,15 @@ package jp.co.sss.book.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import jp.co.sss.book.entity.Genre;
+
 public class BookBean implements Serializable{
     private Integer bookId;
     private String bookName;
     private String author;
     private Date publicationDate;
     private Integer stock;
-    private Integer genreId;
+    private Genre genre;
 
     public BookBean(){}
     
@@ -53,11 +55,12 @@ public class BookBean implements Serializable{
         this.stock = stock;
     }
 
-    public Integer getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(Integer genreId) {
-        this.genreId = genreId;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
+    
 }

@@ -7,10 +7,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- JavaScript -->
-	<script th:src="@{js/jquery-3.6.4.min.js}"></script>
-	<script th:src="@{js/script.js}"></script>
+	<script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
 	<!-- CSS -->
-	<link th:href="@{css/liststyle.css}" rel="stylesheet">
+	<link th:href="@{/css/liststyle.css}" rel="stylesheet">
 	<!-- Boxicons CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 <title>書籍管理システム</title>
@@ -109,25 +109,25 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		<div class="table" th:unless="${#lists.isEmpty(books)}">
 			<table class="list-table">
 				<tr>
-					<th class="bookid">書籍ID</th>
-					<th>書籍名</th>
-					<th>著者</th>
-					<th>発行日</th>
-					<th>在庫</th>
-					<th>ジャンル</th>
+					<th class="th book_id">書籍ID</th>
+					<th class="th book_name">書籍名</th>
+					<th class="th author">著者</th>
+					<th class="th pub_date">発行日</th>
+					<th class="th stock">在庫</th>
+					<th class="th genre">ジャンル</th>
 				</tr>
 				<tr th:each="book:${books}">
-					<td th:text="${book.bookId}"></td>
-					<td th:text="${book.bookName}"></td>
-					<td th:text="${book.author}"></td>
-					<td th:text="${#dates.format(book.publicationDate, 'YYYY/MM/dd')}"></td>
-					<td th:text="${book.stock}"></td>
-					<td th:text="${book.genre.genreName}"></td>
+					<td class="data" th:text="${book.bookId}"></td>
+					<td class="data" th:text="${book.bookName}"></td>
+					<td class="data" th:text="${book.author}"></td>
+					<td class="data" th:text="${#dates.format(book.publicationDate, 'YYYY/MM/dd')}"></td>
+					<td class="data" th:text="${book.stock}"></td>
+					<td class="data" th:text="${book.genre.genreName}"></td>
+					<td class="btn"><form th:action="@{/update/}+${book.bookId}" method="post"><input type="submit" value="編集" class="edit"></form></td>
+					<td class="btn"><form th:action="@{/delete/excute/}+${book.bookId}" method="post" class="deleteForm"><input type="submit" value="削除" id="delete"></form></td>
 				</tr>
 			</table>
 		</div>
 	</div>
-
-
 </body>
 </html>

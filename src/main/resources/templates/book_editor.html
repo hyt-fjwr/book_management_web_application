@@ -12,8 +12,7 @@
 	<link th:href="@{/css/liststyle.css}" rel="stylesheet">
 	<!-- Boxicons CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-	<link rel="icon" type="image/png" href="images/logo.png">
-<title>新規書籍登録</title>
+<title>書籍情報編集</title>
 </head>
 <body>
 	<nav class="sidebar">
@@ -94,34 +93,35 @@
 	</nav>
 
     <div class="container">
-        <div class="title">新規書籍登録</div>
-        <form th:action="@{/registry_complete}" method="post" class="user-details">
+        <div class="title">書籍情報編集</div>
+        <form th:action="@{/update/excute/}+${book.bookId}" th:each="book:${books}" method="post" class="user-details">
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">書籍名</span>
-                    <input type="text" name="bookName" placeholder="書籍名を入力してください" required />
+                    <input type="text" name="bookName" th:value="${book.bookName}" placeholder="書籍名を入力してください" required />
                 </div>
                 <div class="input-box">
                     <span class="details">著者</span>
-                    <input type="text" name="author" placeholder="著者を入力してください" required />
+                    <input type="text" name="author" th:value="${book.author}" placeholder="著者を入力してください" required />
                 </div>
                 <div class="input-box">
                     <span class="details">発行日</span>
-                    <input type="date" name="publicationDate" pattern="\d{4}-\d{2}-\d{2}" placeholder="発行日を入力してください" required />
+                    <input type="date" name="publicationDate" th:value="${#dates.format(book.publicationDate, 'YYYY-MM-dd')}" pattern="\d{4}-\d{2}-\d{2}" placeholder="発行日を入力してください" required />
                 </div>
                 <div class="input-box">
                     <span class="details">在庫数</span>
-                    <input type="number" name="stock" placeholder="在庫数を入力してください" required />
+                    <input type="number" name="stock" th:value="${book.stock}" placeholder="在庫数を入力してください" required />
                 </div>
                 <div class="input-box">
                     <span class="details">ジャンル</span>
                     <select name="genreId">
-						<option th:each="genre:${genres}" name="genreId" th:value="${genre.id}" th:text="${genre.genreName}"></option>
+						<option th:each="genre:${genres}" name="genreId" th:value="${genre.id}" th:text="${genre.genreName}" 
+						th:selected="${book.genre.id == genre.id}"></option>
 					</select>
                 </div>
             </div>
             <div class="button">
-                <input type="submit" value="登録">
+                <input type="submit" value="更新">
             </div>
         </form>
     </div>
