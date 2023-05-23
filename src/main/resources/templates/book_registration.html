@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	<link rel="icon" type="image/png" href="/images/logo.png">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
 <title>新規書籍登録</title>
 </head>
 <body>
+	<!-- Navigation bar -->
 	<nav class="sidebar">
 		<header>
 			<div class="image-text">
@@ -68,7 +70,6 @@
 					</li>
 				</ul>
 			</div>
-
 			<div class="bottom-content">
 				<li class="">
 					<a th:href="@{/logout}" class="logoutBtn">
@@ -76,15 +77,12 @@
 						<span class="text nav-text">ログアウト</span>
 					</a>
 				</li>
-
 				<li class="mode">
 					<div class="moon-sun">
 						<i class="bx bx-moon icon moon"></i>
 						<i class="bx bx-sun icon sun"></i>
 					</div>
-
 					<span class="text mode-text">ダークモード</span>
-
 					<div class="toggle-switch">
 						<span class="switch"></span>
 					</div>
@@ -92,7 +90,7 @@
 			</div>
 		</div>
 	</nav>
-
+<!-- Main body -->
     <div class="container">
         <div class="title">新規書籍登録</div>
         <form th:action="@{/registry_complete}" method="post" class="user-details">

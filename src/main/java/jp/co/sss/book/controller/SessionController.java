@@ -22,9 +22,10 @@ public class SessionController {
 	@Autowired
 	private BookUserRepository userRepository;
 
+	//Logout
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		// セッションの破棄
+		// Invalidate session
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -34,7 +35,8 @@ public class SessionController {
 		model.addAttribute("loginForm", form);
 		return "index";
 	}
-
+	
+	//Login method
 	@PostMapping("/login")
 	public String doLogin(Model model, @Valid @ModelAttribute LoginForm form, BindingResult result, HttpSession session, BookUser user){
 		BookUser userData = userRepository.findByBookUserIdAndPassword(form.getBookUserId(), form.getPassword());

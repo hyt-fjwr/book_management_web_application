@@ -32,12 +32,13 @@ public class LoginCheck extends HttpFilter{
             HttpSession session = request.getSession();
             Integer userId = (Integer)session.getAttribute("userId");
             System.out.println(userId);
-            //if session doesnt have info redirect to the login page
+            //if session doesnt have userId info redirect to the login page
             if(userId==null){
                 response.sendRedirect("/book_list/login");
                 return;
             } else {
                 if(URL.endsWith("/")){
+                	//Disable access to the login page while user logged in.
                     response.sendRedirect("/book_list/list");
                     return;
                 }else {

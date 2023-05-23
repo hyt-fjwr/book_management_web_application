@@ -1,8 +1,12 @@
 package jp.co.sss.book.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,24 +32,20 @@ public class BookController {
     @Autowired
     GenreRepository genreRepository;
 
-
+    //Main page
     @RequestMapping("/list")
-    public String showList(Model model) {
+    public String showList(Model model, Pageable pageable) {
+        Page<Book> pages = repository.findAllWithPagenation(pageable);
+        List<Book> bookList = pages.getContent();
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
-        model.addAttribute("books", repository.findAllByOrderByBookIdAsc());
-        return "/list";
+        model.addAttribute("books", bookList);
+        model.addAttribute("page", pages);
+        return "/list_all_paging";
     }
 
     @RequestMapping("/list_r")
     public String redirect(Model model) {
         return "redirect:/list";
-    }
-
-    @RequestMapping("/findAll")
-    public String showList(Model model, String user) {
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
-        model.addAttribute("books", repository.findAllByOrderByBookIdAsc());
-        return "/list";
     }
 
     @PostMapping("/findByName")
@@ -54,14 +54,15 @@ public class BookController {
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
         return "/list";
     }
-
+    
     @PostMapping("/findByGenre")
     public String findByGenre(Integer genreId, Model model){
         model.addAttribute("books", repository.findByGenreId(genreId));
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
         return "/list";
     }
-
+    
+    //Display registry page
     @RequestMapping("/registry_book")
     public String registryBook(Model model){
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
@@ -69,6 +70,7 @@ public class BookController {
         return "book_registration";
     }
 
+    //Data registry method
     @PostMapping("/registry_complete")
     public String registryComplete(BookForm form, Model model){
     	//Create entity objects
@@ -85,9 +87,11 @@ public class BookController {
         book=repository.save(book);
         return "redirect:/registry_book";
     }
-
+    
+    //Display update page
     @RequestMapping("/update/{bookId}")
     public String updateInfo(@PathVariable Integer bookId, BookForm form, Model model){
+    	//Create entity objects
         Book book = repository.findByBookId(bookId);
         BookBean bookBean = new BookBean();
         model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
@@ -96,24 +100,29 @@ public class BookController {
         return "/book_editor";
     }
 
+    //Update book data in the database
     @PostMapping("/update/excute/{bookId}")
     public String updateComplete(@PathVariable Integer bookId, BookForm form, Model model){
-        Book book = repository.getReferenceById(bookId);
+        //Create entity objects.
+    	Book book = repository.getReferenceById(bookId);
         Genre genre = new Genre();
-
+        //Get genre id from the form and then set genre id to the genre entity. 
         genre.setId(form.getGenreId());
         book.setGenre(genre);
-
+        //Copy form value to the book entity exclude book id.
         BeanUtils.copyProperties(form, book, "id");
+        //Save changed values to the database.
         book = repository.save(book);
+        //unnessesary code??
         BookBean bookBean = new BookBean();
         BeanUtils.copyProperties(book, bookBean);
         return "redirect:/list";
     }
 
+    //Delete book data from the database
     @PostMapping("/delete/excute/{bookId}")
     public String deleteComplete(@PathVariable Integer bookId, Model model){
             repository.deleteById(bookId);
             return "redirect:/list";
-        }
+    }
 }

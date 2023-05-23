@@ -7,10 +7,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- JavaScript -->
-	<script th:src="@{js/jquery-3.6.4.min.js}"></script>
-	<script th:src="@{js/script.js}"></script>
+	<script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
 	<!-- CSS -->
-	<link th:href="@{css/liststyle.css}" rel="stylesheet">
+	<link th:href="@{/css/liststyle.css}" rel="stylesheet">
 	<!-- Boxicons CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 <title>書籍管理システム</title>
@@ -97,7 +97,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		<h1 class="table-header">書籍一覧</h1>
 		<div class="menu-container">
 			<div class="findAllBtn">
-				<a th:href="@{/findAll}">
+				<a th:href="@{/list_r}">
 					<i class="bx bx-search icon"></i>
 					<span class="text findAllText">全件表示</span>
 				</a>
@@ -109,25 +109,61 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		<div class="table" th:unless="${#lists.isEmpty(books)}">
 			<table class="list-table">
 				<tr>
-					<th class="bookid">書籍ID</th>
-					<th>書籍名</th>
-					<th>著者</th>
-					<th>発行日</th>
-					<th>在庫</th>
-					<th>ジャンル</th>
+					<th class="th book_id">書籍ID</th>
+					<th class="th book_name">書籍名</th>
+					<th class="th author">著者</th>
+					<th class="th pub_date">発行日</th>
+					<th class="th stock">在庫</th>
+					<th class="th genre">ジャンル</th>
 				</tr>
 				<tr th:each="book:${books}">
-					<td th:text="${book.bookId}"></td>
-					<td th:text="${book.bookName}"></td>
-					<td th:text="${book.author}"></td>
-					<td th:text="${#dates.format(book.publicationDate, 'YYYY/MM/dd')}"></td>
-					<td th:text="${book.stock}"></td>
-					<td th:text="${book.genre.genreName}"></td>
+					<td class="data" th:text="${book.bookId}"></td>
+					<td class="data" th:text="${book.bookName}"></td>
+					<td class="data" th:text="${book.author}"></td>
+					<td class="data" th:text="${#dates.format(book.publicationDate, 'YYYY/MM/dd')}"></td>
+					<td class="data" th:text="${book.stock}"></td>
+					<td class="data" th:text="${book.genre.genreName}"></td>
+					<td class="btn">
+						<form th:action="@{/update/}+${book.bookId}" method="post">
+							<input type="submit" value="編集" class="edit" />
+						</form>
+					</td>
+					<td class="btn">
+						<form th:action="@{/delete/excute/}+${book.bookId}" method="post" class="deleteForm">
+							<input type="submit" value="削除" id="delete">
+						</form>
+					</td>
 				</tr>
 			</table>
+			<ul class="pagenation">
+				<li>
+					<a th:href="@{/list(page = ${page.first})}" th:if="${!page.first}">
+						最初へ
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/list(page = ${page.number} - 1)}" th:if="${!page.first}">
+						前へ
+					</a>
+				</li>
+				<li th:class="${i == page.number} ? 'active' : 'deactive'" th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}">
+					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+					<a th:if="${i} != ${page.number}" th:href="@{/list(page = ${i})}">
+						<span th:text="${i+1}">1</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/list(page = ${page.number} + 1)}" th:if="${!page.last}">
+						次へ
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/list(page = ${page.totalPages} - 1)}" th:if="${!page.last}">
+						最後へ
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-
-
 </body>
 </html>

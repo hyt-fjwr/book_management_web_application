@@ -331,7 +331,7 @@ body.dark .switch::before{
 
  /* list table */
 .main-list{
-    margin: 50px 0 0 270px;
+    margin: 50px 20px 0 270px;
     padding: 15px;
     color: var(--header-color);
 }
@@ -451,6 +451,39 @@ body.dark .switch::before{
     cursor: pointer;
     background: var(--button-color);
     transition: var(--tran-02);
+}
+
+.main-list ul.pagenation{
+    margin-top: 20px;
+    list-style-type: none;
+    text-align: center;
+}
+
+.main-list ul.pagenation li{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline;
+    border-radius: 0.75rem;
+    justify-content: center;
+}
+
+.main-list ul.pagenation li a{
+    color: var(--text-color);
+    transition: var(--tran-02);
+    font-size: 15px;
+}
+
+.main-list ul.pagenation li a:hover{
+    color: var(--primary-color-);
+    transition: var(--tran-02);
+}
+
+.main-list ul.pagenation li.active{
+    background: var(--list-color);
+    font-size: 18px;
+    box-shadow: 0px 0px 10px rgb(130, 130, 130);
 }
 
 /* registration table */
