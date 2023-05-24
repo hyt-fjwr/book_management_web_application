@@ -40,14 +40,13 @@ public class SessionController {
 	@PostMapping("/login")
 	public String doLogin(Model model, @Valid @ModelAttribute LoginForm form, BindingResult result, HttpSession session, BookUser user){
 		BookUser userData = userRepository.findByBookUserIdAndPassword(form.getBookUserId(), form.getPassword());
-		BookUser userName = userRepository.findByBookUserId(form.getBookUserId());
 		model.addAttribute("loginForm", form);
 		if(result.hasErrors()){
 			return "index";
 		}
 		if(userData != null) {
 			session.setAttribute("userId", form.getBookUserId());
-			session.setAttribute("userName", userName.getBookUserName());
+			session.setAttribute("userName", userData.getBookUserName());
 			return "redirect:/list";
 		} else {
 			model.addAttribute("errMessage", "ユーザID、またはパスワードが間違っています。");
