@@ -49,7 +49,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<form th:action="@{/findByGenre}" id="searchForm" name="genreSearch" method="post" class="search">
 							<a href="javascript:genreSearch.submit()" class="searchGenre"><i class='bx bx-search-alt icon'></i></a>
 							<select name="genreId">
-								<option th:each="genre:${genres}" th:value="${genre.id}" th:text="${genre.genreName}"></option>
+								<option th:each="genre:${genres}" th:value="${genre.id}" th:text="${genre.genreName}" th:selected="${genreId == genre.id}"></option>
 							</select>
 						</form>
 					</li>

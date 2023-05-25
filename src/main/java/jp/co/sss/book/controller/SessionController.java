@@ -32,7 +32,6 @@ public class SessionController {
 
 	@GetMapping("/login")
 	public String Login(Model model, @ModelAttribute LoginForm form){
-		model.addAttribute("loginForm", form);
 		return "index";
 	}
 	
@@ -40,7 +39,6 @@ public class SessionController {
 	@PostMapping("/login")
 	public String doLogin(Model model, @Valid @ModelAttribute LoginForm form, BindingResult result, HttpSession session, BookUser user){
 		BookUser userData = userRepository.findByBookUserIdAndPassword(form.getBookUserId(), form.getPassword());
-		model.addAttribute("loginForm", form);
 		if(result.hasErrors()){
 			return "index";
 		}

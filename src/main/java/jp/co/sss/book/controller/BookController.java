@@ -32,12 +32,20 @@ public class BookController {
     @Autowired
     GenreRepository genreRepository;
 
+    //get all genres for the selector
+    private List<Genre> getAllGenres() {
+        return genreRepository.findAllByOrderByIdAsc();
+    }
+
     //Main page
     @RequestMapping("/list")
     public String showList(Model model, Pageable pageable) {
         Page<Book> pages = repository.findAllWithPagenation(pageable);
         List<Book> bookList = pages.getContent();
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        //Get all genres and then add them to the model.
+        List<Genre> allGenres = getAllGenres();
+        model.addAttribute("genres", allGenres);
+        
         model.addAttribute("books", bookList);
         model.addAttribute("page", pages);
         return "/list_all_paging";
@@ -50,22 +58,36 @@ public class BookController {
 
     @PostMapping("/findByName")
     public String findByContainin(String bookName, Model model) {
+        //Returns the main list if searched with nothing specified
+        if (bookName == "") {
+            return "redirect:/list";
+        } else {
+        //Get text from the form and then find books based on that text.
         model.addAttribute("books", repository.findByBookNameContaining(bookName));
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        //Get all genres and then add them to the model.
+        List<Genre> allGenres = getAllGenres();
+        model.addAttribute("genres", allGenres);
         return "/list";
+        }
     }
     
     @PostMapping("/findByGenre")
     public String findByGenre(Integer genreId, Model model){
+        //Get genre value from the from and then find books based on that genre.
         model.addAttribute("books", repository.findByGenreId(genreId));
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        model.addAttribute("genreId", genreId);
+        //Get all genres and then add them to the model.
+        List<Genre> allGenres = getAllGenres();
+        model.addAttribute("genres", allGenres);
         return "/list";
     }
     
     //Display registry page
     @RequestMapping("/registry_book")
     public String registryBook(Model model){
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        //Get all genres and then add them to the model.
+        List<Genre> allGenres = getAllGenres();
+        model.addAttribute("genres", allGenres);
         model.addAttribute("books", repository.findAllByOrderByBookIdAsc());
         return "book_registration";
     }
@@ -94,7 +116,9 @@ public class BookController {
     	//Create entity objects
         Book book = repository.findByBookId(bookId);
         BookBean bookBean = new BookBean();
-        model.addAttribute("genres", genreRepository.findAllByOrderByIdAsc());
+        //Get all genres and then add them to the model.
+        List<Genre> allGenres = getAllGenres();
+        model.addAttribute("genres", allGenres);
         BeanUtils.copyProperties(book, bookBean);
         model.addAttribute("books", bookBean);
         return "/book_editor";
