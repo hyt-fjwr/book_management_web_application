@@ -22,6 +22,6 @@ public interface BookRepository extends JpaRepository<Book, Integer>{
     Book findByBookId(Integer bookId);
     
     //Find all method for paging
-    @Query(value = "select * from book ORDER BY book_id", countQuery = "SELECT count(*) FROM book", nativeQuery = true)
+    @Query(value = "SELECT * FROM book ORDER BY book_id", countQuery = "SELECT count(*) FROM book", nativeQuery = true)
     Page<Book> findAllWithPagenation(Pageable pageable);
 }

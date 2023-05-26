@@ -19,6 +19,7 @@ public class Genre {
     public void setId(Integer id) {
         this.id = id;
     }
+    
     public String getGenreName() {
         return genreName;
     }

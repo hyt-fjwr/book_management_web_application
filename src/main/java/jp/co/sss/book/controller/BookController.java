@@ -128,7 +128,7 @@ public class BookController {
     @PostMapping("/update/excute/{bookId}")
     public String updateComplete(@PathVariable Integer bookId, BookForm form, Model model){
         //Create entity objects.
-    	Book book = repository.getReferenceById(bookId);
+        Book book = repository.getReferenceById(bookId);
         Genre genre = new Genre();
         //Get genre id from the form and then set genre id to the genre entity. 
         genre.setId(form.getGenreId());
