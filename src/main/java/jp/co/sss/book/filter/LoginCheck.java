@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LoginCheck extends HttpFilter{
+    @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)throws IOException, ServletException{
         String URL = request.getRequestURI();
 
@@ -35,12 +36,10 @@ public class LoginCheck extends HttpFilter{
             //if session doesnt have userId info redirect to the login page
             if(userId==null){
                 response.sendRedirect("/book_list/login");
-                return;
             } else {
                 if(URL.endsWith("/")){
                 	//Disable access to the login page while user logged in.
                     response.sendRedirect("/book_list/list");
-                    return;
                 }else {
                     chain.doFilter(request, response);
                 }

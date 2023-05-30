@@ -594,3 +594,20 @@ form .button input:hover{
     transition: var(--tran-05);
     background: var(--primary-color-);
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--text-color);
+    border-radius: 5px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-color-);
+    border-radius: 5px;
+  }

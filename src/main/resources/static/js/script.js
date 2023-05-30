@@ -8,6 +8,8 @@ $(document).ready(function () {
     $(".mode-text").text("ダークモード");
   }
 
+  
+
   // トグルスイッチのクリックイベント処理
   $(".toggle-switch").click(function () {
     $("body").toggleClass("dark");
